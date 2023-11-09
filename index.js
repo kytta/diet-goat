@@ -104,19 +104,16 @@ const getData = (variables = {}) => {
  * @returns {boolean} whether the visit should be counted
  */
 const shouldCount = () => {
-  //@ts-ignore: not standard property
-  if ("visibilityState" in document && document.visibilityState === "prerender")
-    return false; // prerender
-  if (window.location !== window.parent.location) return false; // iframe
-  if (
-    /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(
+  return (
+    // @ts-ignore: not standard property
+    document.visibilityState !== "prerender" && // prerender
+    window.location === window.parent.location && // iframe
+    !/(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(
       window.location.hostname,
-    )
-  )
-    return false; // localhost
-  if (window.location.protocol === "file:") return false; // local file
-  if (localStorage && localStorage.getItem("skipgc") === "t") return false; //disabled
-  return true;
+    ) && // localhost
+    window.location.protocol !== "file:" && // local file
+    localStorage?.getItem("skipgc") !== "t" // opted out
+  );
 };
 
 /**
