@@ -7,6 +7,8 @@ import js from "@eslint/js";
 const xoBrowserConfig = require("eslint-config-xo/browser");
 const unicorn = require("eslint-plugin-unicorn");
 
+const pImport = require("eslint-plugin-import");
+
 import jsdoc from "eslint-plugin-jsdoc";
 import globals from "globals";
 
@@ -38,6 +40,14 @@ export default [
     rules: unicorn.configs.recommended.rules,
   },
 
+  // import/recommended
+  {
+    plugins: {
+      import: pImport,
+    },
+    rules: pImport.configs.recommended.rules,
+  },
+
   // jsdoc/recommended
   jsdoc.configs["flat/recommended-typescript-flavor"],
 
@@ -51,8 +61,9 @@ export default [
       },
     },
     plugins: {
-      jsdoc,
       unicorn,
+      import: pImport,
+      jsdoc,
     },
   },
 ];
