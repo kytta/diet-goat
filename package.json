@@ -26,10 +26,12 @@
     "build": "tsc",
     "fmt": "prettier --write .",
     "test": "tsc --noEmit --emitDeclarationOnly false && size-limit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "publish": "clean-publish"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^10.0.2",
+    "clean-publish": "^4.2.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
