@@ -1,6 +1,6 @@
 {
   "name": "diet-goat",
-  "version": "3.0.0-alpha.5",
+  "version": "3.0.0-beta.0",
   "description": "A lightweight replacement for GoatCounter's counter",
   "homepage": "https://github.com/kytta/diet-goat#readme",
   "bugs": "https://github.com/kytta/diet-goat/issues",
