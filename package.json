@@ -2,19 +2,31 @@
   "name": "diet-goat",
   "version": "3.0.0-alpha.0",
   "description": "A lightweight replacement for GoatCounter's counter",
-  "author": "Nikita Karamov <me@kytta.dev>",
+  "homepage": "https://github.com/kytta/diet-goat#readme",
+  "bugs": "https://github.com/kytta/diet-goat/issues",
   "license": "ISC",
-  "main": "index.js",
+  "author": "Nikita Karamov <me@kytta.dev>",
+  "funding": [
+    "https://github.com/sponsors/kytta",
+    "https://liberapay.com/kytta",
+    "http://paypal.me/NickKaramoff"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.d.ts.map"
+  ],
   "type": "module",
+  "exports": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kytta/diet-goat.git"
+  },
   "scripts": {
     "build": "tsc",
     "fmt": "prettier --write .",
     "test": "tsc --noEmit --emitDeclarationOnly false && size-limit",
     "prepare": "husky install"
-  },
-  "lint-staged": {
-    "*": "prettier --ignore-unknown --write",
-    "*.ts": "tsc"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^10.0.2",
@@ -23,6 +35,10 @@
     "prettier": "^3.0.3",
     "size-limit": "^10.0.2",
     "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write",
+    "*.ts": "tsc"
   },
   "size-limit": [
     {
