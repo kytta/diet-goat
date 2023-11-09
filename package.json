@@ -40,8 +40,7 @@
     "typescript": "^5.2.2"
   },
   "publishConfig": {
-    "directory": "package",
-    "provenance": true
+    "directory": "package"
   },
   "clean-publish": {
     "withoutPublish": true,
