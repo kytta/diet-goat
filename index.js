@@ -136,9 +136,7 @@ const getUrl = (endpoint, vars = {}) => {
   if (!endpoint) return undefined;
   const url = new URL(endpoint);
   for (const [k, v] of Object.entries(getData(vars))) {
-    if (!!v) {
-      url.searchParams.append(k, v.toString());
-    }
+    if (v) url.searchParams.append(k, v.toString());
   }
 
   return url;
