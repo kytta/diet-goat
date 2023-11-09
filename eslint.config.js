@@ -1,26 +1,47 @@
 import { createRequire } from "node:module";
 
-import js from "@eslint/js";
-import globals from "globals";
-import jsdoc from "eslint-plugin-jsdoc";
-
 const require = createRequire(import.meta.url);
+
+import js from "@eslint/js";
+
+const xoBrowserConfig = require("eslint-config-xo/browser");
 const unicorn = require("eslint-plugin-unicorn");
+
+import jsdoc from "eslint-plugin-jsdoc";
+import globals from "globals";
 
 /** @type {import("eslint").Linter.FlatConfig} */
 export default [
-  js.configs.recommended,
+  // eslint/recommended
+  {
+    ...js.configs.recommended,
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+  },
+
+  // xo/browser
   {
     languageOptions: {
-      ecmaVersion: 2024,
-      parserOptions: unicorn.configs.recommended.parserOptions,
+      globals: {
+        ...globals.browser,
+      },
     },
+    rules: xoBrowserConfig.rules,
+  },
+
+  // unicorn/recommended
+  {
     plugins: {
       unicorn,
     },
     rules: unicorn.configs.recommended.rules,
   },
+
+  // jsdoc/recommended
   jsdoc.configs["flat/recommended-typescript-flavor"],
+
+  // my overrides
   {
     files: ["index.js"],
     languageOptions: {

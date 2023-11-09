@@ -89,7 +89,7 @@ const getData = (variables = {}) => {
     r: variables?.r ?? document.referrer,
     t: variables?.t ?? document.title,
     e: variables?.e ?? false,
-    q: location.search,
+    q: window.location.search,
     s: [
       window.screen.width,
       window.screen.height,
@@ -107,14 +107,14 @@ const shouldCount = () => {
   //@ts-ignore: not standard property
   if ("visibilityState" in document && document.visibilityState === "prerender")
     return false; // prerender
-  if (location !== parent.location) return false; // iframe
+  if (window.location !== window.parent.location) return false; // iframe
   if (
     /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(
-      location.hostname,
+      window.location.hostname,
     )
   )
     return false; // localhost
-  if (location.protocol === "file:") return false; // local file
+  if (window.location.protocol === "file:") return false; // local file
   if (localStorage && localStorage.getItem("skipgc") === "t") return false; //disabled
   return true;
 };
