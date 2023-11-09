@@ -20,7 +20,7 @@
   "exports": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kytta/diet-goat.git"
+    "url": "git+https://github.com/kytta/diet-goat.git"
   },
   "scripts": {
     "build": "tsc",
