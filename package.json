@@ -25,6 +25,7 @@
   "scripts": {
     "build": "tsc",
     "fmt": "prettier --write .",
+    "lint": "prettier --check .",
     "test": "tsc --noEmit --emitDeclarationOnly false && size-limit",
     "prepare": "husky install",
     "prepublishOnly": "rm -rf ./package && clean-publish",
