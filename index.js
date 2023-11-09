@@ -1,5 +1,5 @@
-/** Diet Goat™ - a lightweight replacement for gc.zgo.at/count.js
- *
+/**
+ * Diet Goat™ - a lightweight replacement for gc.zgo.at/count.js
  *  @author Nikita Karamov
  *  @author Martin Tournoij
  *  @license ISC
@@ -10,7 +10,6 @@
  *
  * An integer constant from the zgo.at/isbot library, which (for us)
  * should be >=150.
- *
  * @enum {number}
  */
 export const BotType = {
@@ -23,7 +22,6 @@ export const BotType = {
 
 /**
  * GoatCounter data parameters
- *
  * @typedef GoatData
  * @property {string} p Page path or event name
  * @property {string} [t] Page title
@@ -36,8 +34,7 @@ export const BotType = {
 
 /**
  * Infer page path from the URL.
- *
- * @return {string} page path
+ * @returns {string} page path
  */
 const getPath = () => {
   /** @type {Location | URL} */
@@ -64,8 +61,7 @@ const getPath = () => {
  *
  * There is some additional filtering on the backend, but these properties
  * can't be fetched from there.
- *
- * @return {BotType} bot type
+ * @returns {BotType} bot type
  */
 const isBot = () => {
   // Headless browsers are probably a bot.
@@ -84,17 +80,16 @@ const isBot = () => {
 
 /**
  * Get all data we're going to send off to the counter endpoint.
- *
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
- * @return {GoatData} data to be sent
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
+ * @returns {GoatData} data to be sent
  */
-const getData = (vars = {}) => {
+const getData = (variables = {}) => {
   return {
-    p: vars?.p ?? getPath(),
-    r: vars?.r ?? document.referrer,
-    t: vars?.t ?? document.title,
-    e: vars?.e ?? false,
-    q: location.search,
+    p: variables?.p ?? getPath(),
+    r: variables?.r ?? document.referrer,
+    t: variables?.t ?? document.title,
+    e: variables?.e ?? false,
+    q: window.location.search,
     s: [
       window.screen.width,
       window.screen.height,
@@ -106,39 +101,32 @@ const getData = (vars = {}) => {
 
 /**
  * Check if the visit should be counted
- *
- * @return {boolean}
+ * @returns {boolean} whether the visit should be counted
  */
 const shouldCount = () => {
-  //@ts-ignore: not standard property
-  if ("visibilityState" in document && document.visibilityState === "prerender")
-    return false; // prerender
-  if (location !== parent.location) return false; // iframe
-  if (
-    location.hostname.match(
-      /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.|^192\.168\.|^0\.0\.0\.0$)/,
-    )
-  )
-    return false; // localhost
-  if (location.protocol === "file:") return false; // local file
-  if (localStorage && localStorage.getItem("skipgc") === "t") return false; //disabled
-  return true;
+  return (
+    // @ts-ignore: not standard property
+    document.visibilityState !== "prerender" && // prerender
+    window.location === window.parent.location && // iframe
+    !/(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(
+      window.location.hostname,
+    ) && // localhost
+    window.location.protocol !== "file:" && // local file
+    localStorage?.getItem("skipgc") !== "t" // opted out
+  );
 };
 
 /**
  * Get URL to send to GoatCounter.
- *
  * @param {string} endpoint GC endpoint
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
- * @return {undefined|URL} URL to send the beacon to
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
+ * @returns {undefined|URL} URL to send the beacon to
  */
-const getUrl = (endpoint, vars = {}) => {
-  if (!endpoint) return undefined;
+const getUrl = (endpoint, variables = {}) => {
+  if (!endpoint) return;
   const url = new URL(endpoint);
-  for (const [k, v] of Object.entries(getData(vars))) {
-    if (!!v) {
-      url.searchParams.append(k, v.toString());
-    }
+  for (const [k, v] of Object.entries(getData(variables))) {
+    if (v) url.searchParams.append(k, v.toString());
   }
 
   return url;
@@ -146,17 +134,16 @@ const getUrl = (endpoint, vars = {}) => {
 
 /**
  * Count the visit.
- *
  * @param  {string} endpoint GoatCounter API endpoint
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
  */
-export const count = (endpoint, vars = {}) => {
+export const count = (endpoint, variables = {}) => {
   // Don't bother if we can't send beacons
   if (!navigator.sendBeacon) return;
 
   if (!shouldCount()) return;
 
-  const url = getUrl(endpoint, vars);
+  const url = getUrl(endpoint, variables);
   if (url === undefined) return;
 
   navigator.sendBeacon(url);
