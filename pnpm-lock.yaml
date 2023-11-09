@@ -8,6 +8,9 @@ devDependencies:
   "@size-limit/preset-small-lib":
     specifier: ^10.0.2
     version: 10.0.2(size-limit@10.0.2)
+  clean-publish:
+    specifier: ^4.2.0
+    version: 4.2.0
   husky:
     specifier: ^8.0.3
     version: 8.0.3
@@ -446,6 +449,20 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
+
+  /clean-publish@4.2.0:
+    resolution:
+      {
+        integrity: sha512-dqZF5y6KtlkYhbnJoXiOCP4L1TPdI7HtuDysslUrbI8vLPu65ZjVO3pu5xp4qH0X2cWdDN/La04woe6fg4LNSw==,
+      }
+    engines: { node: ">= 16.0.0" }
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      fast-glob: 3.3.2
+      lilconfig: 2.1.0
+      micromatch: 4.0.5
     dev: true
 
   /cli-cursor@4.0.0:
@@ -1217,3 +1234,5 @@ packages:
       }
     engines: { node: ">= 14" }
     dev: true
+
+publishDirectory: package
