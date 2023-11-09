@@ -24,9 +24,14 @@
   },
   "scripts": {
     "build": "tsc",
-    "fmt": "prettier --write .",
-    "lint": "prettier --check . && eslint index.js",
-    "test": "tsc --noEmit --emitDeclarationOnly false && size-limit",
+    "fix": "pnpm run --sequential /^fix:/",
+    "fix:eslint": "eslint --fix index.js",
+    "fix:prettier": "prettier --write .",
+    "lint": "pnpm run /^lint:/",
+    "lint:eslint": "eslint index.js",
+    "lint:prettier": "prettier --check .",
+    "test": "pnpm run /^test:/",
+    "test:size": "size-limit",
     "prepare": "husky install",
     "prepublishOnly": "rm -rf ./package && clean-publish",
     "postpublish": "rm -rf ./package"
