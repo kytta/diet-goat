@@ -1,0 +1,31 @@
+{
+  "include": ["index.js", "global.d.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "rootDir": ".",
+
+    "lib": ["es2017", "DOM", "DOM.Iterable"],
+    "target": "es2017",
+
+    "outDir": ".",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+
+    "allowJs": true,
+    "checkJs": true,
+
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "stripInternal": true,
+
+    "strict": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
