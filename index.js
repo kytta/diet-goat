@@ -1,5 +1,5 @@
-/** Diet Goat™ - a lightweight replacement for gc.zgo.at/count.js
- *
+/**
+ * Diet Goat™ - a lightweight replacement for gc.zgo.at/count.js
  *  @author Nikita Karamov
  *  @author Martin Tournoij
  *  @license ISC
@@ -10,7 +10,6 @@
  *
  * An integer constant from the zgo.at/isbot library, which (for us)
  * should be >=150.
- *
  * @enum {number}
  */
 export const BotType = {
@@ -23,7 +22,6 @@ export const BotType = {
 
 /**
  * GoatCounter data parameters
- *
  * @typedef GoatData
  * @property {string} p Page path or event name
  * @property {string} [t] Page title
@@ -36,8 +34,7 @@ export const BotType = {
 
 /**
  * Infer page path from the URL.
- *
- * @return {string} page path
+ * @returns {string} page path
  */
 const getPath = () => {
   /** @type {Location | URL} */
@@ -64,8 +61,7 @@ const getPath = () => {
  *
  * There is some additional filtering on the backend, but these properties
  * can't be fetched from there.
- *
- * @return {BotType} bot type
+ * @returns {BotType} bot type
  */
 const isBot = () => {
   // Headless browsers are probably a bot.
@@ -84,9 +80,8 @@ const isBot = () => {
 
 /**
  * Get all data we're going to send off to the counter endpoint.
- *
  * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
- * @return {GoatData} data to be sent
+ * @returns {GoatData} data to be sent
  */
 const getData = (vars = {}) => {
   return {
@@ -106,8 +101,7 @@ const getData = (vars = {}) => {
 
 /**
  * Check if the visit should be counted
- *
- * @return {boolean}
+ * @returns {boolean} whether the visit should be counted
  */
 const shouldCount = () => {
   //@ts-ignore: not standard property
@@ -127,10 +121,9 @@ const shouldCount = () => {
 
 /**
  * Get URL to send to GoatCounter.
- *
  * @param {string} endpoint GC endpoint
  * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
- * @return {undefined|URL} URL to send the beacon to
+ * @returns {undefined|URL} URL to send the beacon to
  */
 const getUrl = (endpoint, vars = {}) => {
   if (!endpoint) return undefined;
@@ -144,7 +137,6 @@ const getUrl = (endpoint, vars = {}) => {
 
 /**
  * Count the visit.
- *
  * @param  {string} endpoint GoatCounter API endpoint
  * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
  */
