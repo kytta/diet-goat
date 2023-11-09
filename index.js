@@ -6,21 +6,6 @@
  */
 
 /**
- * Bot type constant.
- *
- * An integer constant from the zgo.at/isbot library, which (for us)
- * should be >=150.
- * @enum {number}
- */
-export const BotType = {
-  NoBotKnown: 0,
-  BotJSPhantom: 150,
-  BotJSNightmare: 151,
-  BotJSSelenium: 152,
-  BotJSWebDriver: 153,
-};
-
-/**
  * GoatCounter data parameters
  * @typedef GoatData
  * @property {string} p Page path or event name
@@ -29,7 +14,7 @@ export const BotType = {
  * @property {boolean} [e] Treat the path as an event
  * @property {string} [q] Query parameters
  * @property {[number, number, number]} [s] Screen size, as [width, height, scale]
- * @property {BotType} [b] Flag this as a "bot request"
+ * @property {number} [b] Flag this as a "bot request"
  */
 
 /**
@@ -61,21 +46,20 @@ const getPath = () => {
  *
  * There is some additional filtering on the backend, but these properties
  * can't be fetched from there.
- * @returns {BotType} bot type
+ * @returns {number} bot type constant from the zgo.at/isbot library
  */
 const isBot = () => {
   // Headless browsers are probably a bot.
-  if (window.callPhantom || window._phantom || window.phantom)
-    return BotType.BotJSPhantom;
-  if (window.__nightmare) return BotType.BotJSNightmare;
+  if (window.callPhantom || window._phantom || window.phantom) return 150; // Phantom
+  if (window.__nightmare) return 151; // Nightmare
   if (
     document.__selenium_unwrapped ||
     document.__webdriver_evaluate ||
     document.__driver_evaluate
   )
-    return BotType.BotJSSelenium;
-  if (navigator.webdriver) return BotType.BotJSWebDriver;
-  return BotType.NoBotKnown;
+    return 152; // Selenium
+  if (navigator.webdriver) return 153; // generic WebDriver
+  return 0; // no bot detected
 };
 
 /**
