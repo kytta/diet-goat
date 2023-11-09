@@ -27,7 +27,8 @@
     "fmt": "prettier --write .",
     "test": "tsc --noEmit --emitDeclarationOnly false && size-limit",
     "prepare": "husky install",
-    "publish": "clean-publish"
+    "prepublishOnly": "rm -rf ./package && clean-publish",
+    "postpublish": "rm -rf ./package"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^10.0.2",
@@ -37,6 +38,14 @@
     "prettier": "^3.0.3",
     "size-limit": "^10.0.2",
     "typescript": "^5.2.2"
+  },
+  "publishConfig": {
+    "directory": "package",
+    "provenance": true
+  },
+  "clean-publish": {
+    "withoutPublish": true,
+    "tempDir": "package"
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write",
