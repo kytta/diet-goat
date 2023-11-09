@@ -80,15 +80,15 @@ const isBot = () => {
 
 /**
  * Get all data we're going to send off to the counter endpoint.
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
  * @returns {GoatData} data to be sent
  */
-const getData = (vars = {}) => {
+const getData = (variables = {}) => {
   return {
-    p: vars?.p ?? getPath(),
-    r: vars?.r ?? document.referrer,
-    t: vars?.t ?? document.title,
-    e: vars?.e ?? false,
+    p: variables?.p ?? getPath(),
+    r: variables?.r ?? document.referrer,
+    t: variables?.t ?? document.title,
+    e: variables?.e ?? false,
     q: location.search,
     s: [
       window.screen.width,
@@ -109,8 +109,8 @@ const shouldCount = () => {
     return false; // prerender
   if (location !== parent.location) return false; // iframe
   if (
-    location.hostname.match(
-      /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.|^192\.168\.|^0\.0\.0\.0$)/,
+    /(localhost$|^127\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^192\.168\.|^0\.0\.0\.0$)/.test(
+      location.hostname,
     )
   )
     return false; // localhost
@@ -122,13 +122,13 @@ const shouldCount = () => {
 /**
  * Get URL to send to GoatCounter.
  * @param {string} endpoint GC endpoint
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
  * @returns {undefined|URL} URL to send the beacon to
  */
-const getUrl = (endpoint, vars = {}) => {
-  if (!endpoint) return undefined;
+const getUrl = (endpoint, variables = {}) => {
+  if (!endpoint) return;
   const url = new URL(endpoint);
-  for (const [k, v] of Object.entries(getData(vars))) {
+  for (const [k, v] of Object.entries(getData(variables))) {
     if (v) url.searchParams.append(k, v.toString());
   }
 
@@ -138,15 +138,15 @@ const getUrl = (endpoint, vars = {}) => {
 /**
  * Count the visit.
  * @param  {string} endpoint GoatCounter API endpoint
- * @param {Partial<GoatData>} [vars] preset data parameters that will be merged into the final one
+ * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
  */
-export const count = (endpoint, vars = {}) => {
+export const count = (endpoint, variables = {}) => {
   // Don't bother if we can't send beacons
   if (!navigator.sendBeacon) return;
 
   if (!shouldCount()) return;
 
-  const url = getUrl(endpoint, vars);
+  const url = getUrl(endpoint, variables);
   if (url === undefined) return;
 
   navigator.sendBeacon(url);
