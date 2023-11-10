@@ -62,7 +62,6 @@
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write",
-    "*.ts": "tsc",
     "index.js": "eslint --fix"
   },
   "size-limit": [
