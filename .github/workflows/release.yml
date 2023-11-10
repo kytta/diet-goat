@@ -24,7 +24,7 @@ jobs:
           node-version: 20.x
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
-      - run: pnpm install
+      - run: pnpm install --ignore-scripts
       - run: pnpm run build
       - run: pnpm publish --no-git-checks --access public --tag ${{ github.event.release.prerelease && 'next' || 'latest' }}
         env:
