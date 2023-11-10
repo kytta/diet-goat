@@ -24,7 +24,7 @@ Unlike the official count.js, Diet Goat
   - **but** it will respect the LocalStorage item, if present
 - does not print warnings to the console
 
-With all these limitations, Diet Goat is around 600 bytes when minified and brotli'ed, which is 3x smaller than the official script.
+With all these limitations, Diet Goat is under 600 bytes when minified and brotli'ed, which is more than 3x smaller than the official script.
 
 ## Use
 
