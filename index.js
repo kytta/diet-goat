@@ -101,34 +101,21 @@ const shouldCount = () => {
 };
 
 /**
- * Get URL to send to GoatCounter.
- * @param {string} endpoint GC endpoint
- * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
- * @returns {undefined|URL} URL to send the beacon to
- */
-const getUrl = (endpoint, variables = {}) => {
-  if (!endpoint) return;
-  const url = new URL(endpoint);
-  for (const [k, v] of Object.entries(getData(variables))) {
-    if (v) url.searchParams.append(k, v.toString());
-  }
-
-  return url;
-};
-
-/**
  * Count the visit.
  * @param  {string} endpoint GoatCounter API endpoint
  * @param {Partial<GoatData>} [variables] preset data parameters that will be merged into the final one
  */
 export const count = (endpoint, variables = {}) => {
+  if (!endpoint) return;
+
   // Don't bother if we can't send beacons
   if (!navigator.sendBeacon) return;
 
   if (!shouldCount()) return;
 
-  const url = getUrl(endpoint, variables);
-  if (url === undefined) return;
-
+  const url = new URL(endpoint);
+  for (const [k, v] of Object.entries(getData(variables))) {
+    if (v) url.searchParams.append(k, v.toString());
+  }
   navigator.sendBeacon(url);
 };
