@@ -26,4 +26,4 @@ jobs:
       - run: pnpm install --ignore-scripts
       - run: pnpm run lint
       - run: pnpm run build
-      - run: pnpm run test
+#      - run: pnpm run test  # size.yml takes care of the only test we have for now
