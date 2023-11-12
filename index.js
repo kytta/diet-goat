@@ -115,7 +115,12 @@ export const count = (endpoint, variables = {}) => {
 
   const url = new URL(endpoint);
   for (const [k, v] of Object.entries(getData(variables))) {
-    if (v) url.searchParams.append(k, v.toString());
+    if (v)
+      url.searchParams.append(
+        k,
+        // @ts-ignore
+        v,
+      );
   }
   navigator.sendBeacon(url);
 };
