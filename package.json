@@ -68,7 +68,7 @@
     {
       "path": "index.js",
       "import": "{ count }",
-      "limit": "650 B",
+      "limit": "500 B",
       "brotli": true
     }
   ]
