@@ -72,7 +72,7 @@ const getData = (variables = {}) => {
     p: variables?.p ?? getPath(),
     r: variables?.r ?? document.referrer,
     t: variables?.t ?? document.title,
-    e: variables?.e ?? false,
+    e: !!variables?.e,
     q: window.location.search,
     s: [
       window.screen.width,
