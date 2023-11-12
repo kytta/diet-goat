@@ -72,7 +72,7 @@ const getData = (variables = {}) => {
     p: variables?.p ?? getPath(),
     r: variables?.r ?? document.referrer,
     t: variables?.t ?? document.title,
-    e: variables?.e ?? false,
+    e: !!variables?.e,
     q: window.location.search,
     s: [
       window.screen.width,
@@ -115,7 +115,12 @@ export const count = (endpoint, variables = {}) => {
 
   const url = new URL(endpoint);
   for (const [k, v] of Object.entries(getData(variables))) {
-    if (v) url.searchParams.append(k, v.toString());
+    if (v)
+      url.searchParams.append(
+        k,
+        // @ts-ignore
+        v,
+      );
   }
   navigator.sendBeacon(url);
 };
