@@ -1,9 +1,4 @@
-/**
- * Diet Goat™ - a lightweight replacement for gc.zgo.at/count.js
- *  @author Nikita Karamov
- *  @author Martin Tournoij
- *  @license ISC
- */
+/*! Diet Goat (lightweight GoatCounter client) */
 
 /**
  * GoatCounter data parameters
