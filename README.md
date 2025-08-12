@@ -1,3 +1,11 @@
+# Diet Goat is now on Codeberg
+
+I've had enough with GitHub. This repository is now on Codeberg: https://codeberg.org/kytta/diet-goat.git
+
+The repository on GitHub will stay archived (read-only) for a few months before I delete it for good.
+
+<details><summary>Previous README</summary>
+
 # Diet Goat™
 
 > A lightweight replacement for GoatCounter's counter
@@ -79,3 +87,5 @@ This project is hosted on GitHub: <https://github.com/kytta/diet-goat.git>
 [isc license]: https://spdx.org/licenses/ISC.html
 [martin tournoij]: https://www.arp242.net/
 [nikita karamov]: https://www.kytta.dev/
+
+</details>
